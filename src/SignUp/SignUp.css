@@ -1,9 +1,16 @@
 .Form {
-    width: 10%;
-    height: 100vh;
-    background-color: blue;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .EmailForm {
     background-color: white;
+}
+
+.Submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
