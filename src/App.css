@@ -1,3 +1,7 @@
 .App {
     height: 100vh;
+    background-color: #2d2074;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

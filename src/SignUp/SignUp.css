@@ -1,8 +1,16 @@
 .Form {
+    height: 50%;
     width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba( 255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(202, 184, 184, 0.856);
+    backdrop-filter: blur( 4px);
+    -webkit-backdrop-filter: blur( 5px);
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18);
+    font-weight: bold;
 }
 
 .EmailForm {
@@ -13,4 +21,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.SubmitButton {
+    background-color: #2d2074;
+    border-color: #2d2074;
+}
+
+.SubmitButton :focus {
+    background-color: #2d2074;
+    border-color: #2d2074;
+}
+
+.SubmitButton :hover {
+    background-color: red;
+    border-color: #2d2074;
+}
+
+.EmailForm {
+    font-weight: bold;
+}
+
+.PasswordForm {
+    font-weight: bold;
+}
+
+.Title {
+    color: cyan;
 }
