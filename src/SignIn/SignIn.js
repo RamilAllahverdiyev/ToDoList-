@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./SignUp.css";
+import "./SignIn.css";
 import React from "react";
-class SignUp extends React.Component {
+class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,14 +36,21 @@ class SignUp extends React.Component {
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
           </Form>
-          <div className="Submit">
-            <Button className="SubmitButton" variant="primary" type="submit">
-              Submit
-            </Button>
+          <div className ="Buttons">
+            <div className="Submit">
+              <Button className="SubmitButton" variant="primary" type="submit">
+                Login
+              </Button>
+            </div>
+            <div className="SignUpp">
+              <Button className="SignUpButton" variant="primary" type="submit">
+                Sign Up
+              </Button>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-export default SignUp;
+export default SignIn;

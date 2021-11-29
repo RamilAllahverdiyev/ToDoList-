@@ -21,6 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 22px;
 }
 
 .SubmitButton {
@@ -48,4 +49,20 @@
 
 .Title {
     color: cyan;
+}
+
+.SignUpp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SignUpButton {
+    border-color: rgb(70, 65, 65);
+    background-color: rgb(70, 65, 65);
+}
+
+.Buttons {
+    justify-content: center;
+    align-items: center;
 }
