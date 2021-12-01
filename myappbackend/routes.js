@@ -8,6 +8,7 @@ router.post('/signup', (request, response) => {
         username: request.body.username,
         email: request.body.email,
         password: request.body.password,
+        lastName: request.body.lastName,
     })
 
 

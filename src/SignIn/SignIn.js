@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./SignIn.css";
 import React from "react";
+import { Link } from 'react-router-dom';
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -42,10 +43,13 @@ class SignIn extends React.Component {
                 Login
               </Button>
             </div>
+            
             <div className="SignUpp">
+            <Link to = "/Register">
               <Button className="SignUpButton" variant="primary" type="submit">
                 Sign Up
               </Button>
+              </Link>
             </div>
           </div>
         </div>
