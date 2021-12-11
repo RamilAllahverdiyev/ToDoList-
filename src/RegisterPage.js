@@ -1,54 +1,74 @@
 import React from "react";
 import "./RegisterPage.css";
+import axios from "axios";
 class RegisterPage extends React.Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      fullName:'',
-      lastName:'',
-      username:'',
-      email:'',
-      password:'',
-      password2:''
-    }
+      fullName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      password2: "",
+    };
     this.changeFullName = this.changeFullName.bind(this);
     this.changeLastName = this.changeLastName.bind(this);
     this.changeusername = this.changeusername.bind(this);
     this.changeemail = this.changeemail.bind(this);
     this.changepassword = this.changepassword.bind(this);
     this.changepassword2 = this.changepassword2.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-  changeFullName(event){
-    this.setState({
-      fullName:event.target.value
-    })
+
+  handleClick() {
+    if(this.state.password === this.state.password2){
+    const registered = {
+      firstName: this.state.fullName,
+      lastName: this.state.lastName,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+    };
+    axios
+      .post("http://localhost:4000/todolist/signup", registered)
+      .then((response) => console.log(response.data));
+    }
+    else{
+      alert("Passwords are not equal");
+    }
   }
-    changeLastName(event){
+  changeFullName(event) {
     this.setState({
-      lastName:event.target.value
-    })
-    }
-    changeusername(event){
-    this.setState({
-      username:event.target.value
-    })
-    }
-    changeemail(event){
-    this.setState({
-      email:event.target.value
-    })
-    }
-    changepassword(event){
-    this.setState({
-      password:event.target.value
-    })
-    }
-    changepassword2(event){
-    this.setState({
-      password2:event.target.value
-    })
+      fullName: event.target.value,
+    });
   }
-render(){
+  changeLastName(event) {
+    this.setState({
+      lastName: event.target.value,
+    });
+  }
+  changeusername(event) {
+    this.setState({
+      username: event.target.value,
+    });
+  }
+  changeemail(event) {
+    this.setState({
+      email: event.target.value,
+    });
+  }
+  changepassword(event) {
+    this.setState({
+      password: event.target.value,
+    });
+  }
+  changepassword2(event) {
+    this.setState({
+      password2: event.target.value,
+    });
+  }
+  render() {
     return (
       <div className="Form">
         <form className="w-50">
@@ -124,7 +144,7 @@ render(){
             <div>
               <label for="validationDefault05">Password</label>
               <input
-               type="password" 
+                type="password"
                 class="form-control formcontrol"
                 id="validationDefault05"
                 placeholder="Password"
@@ -148,14 +168,14 @@ render(){
               </label>
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">
+          <button onClick={this.handleClick} class="btn btn-primary" type="submit">
             Register
           </button>
           <div></div>
         </form>
       </div>
     );
-    }
+  }
 }
 
 export default RegisterPage;

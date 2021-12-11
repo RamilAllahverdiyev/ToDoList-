@@ -2,8 +2,9 @@ POST http://localhost:4000/todolist/signup
 Content-Type: application/json
 
 {
-    "firstName":"Ramil",
-    "username":"Invisible",
-    "email":"allahverdiyevramil@yahoo.com",
-    "password":"ToDoListqagassa"
+    "firstName":"Rajgjkgkjgkuj",
+    "lastName":"uenhgfhgsrljgpojhmhk",
+    "username":"Invisuyuiibljbsukpk'ghdje",
+    "email":"allahjnauyiuajbjhbjhmijmkl@yapkoo.com",
+    "password":"ToDoListuyiqagmknlaskhhjj,skna"
 }
