@@ -8,10 +8,9 @@ class homeScreen extends React.Component {
     super(props);
   }
   render() {
-    console.log("elkfjfdslk")
     return (
       <div>
-       <h1>filgdlzifj</h1>
+       <h1>Home</h1>
       </div>
     );
   }

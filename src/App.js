@@ -11,8 +11,8 @@ function App() {
     <Router>
       <div className="App d-flex justify-content-center ">
         <Switch>
-          <Route path="/" exact component={SignIn} />
-          <Route path="/register" component={Register} />
+          <Route path="/" exact component={SignIn}/>
+          <Route path="/register" component={Register}/>
           <Route path="/home" component={homeScreen}/>
         </Switch>
       </div>
