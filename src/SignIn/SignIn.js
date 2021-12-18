@@ -5,7 +5,6 @@ import React from "react";
 import { Link, } from 'react-router-dom';
 import '../homeScreen/homeScreen';
 import axios from "axios";
-import Goodbye from './Goodbye'
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -16,6 +15,7 @@ class SignIn extends React.Component {
     };
     this.changeemail = this.changeemail.bind(this);
     this.changepassword = this.changepassword.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   changeemail(event) {
     this.setState({
@@ -27,8 +27,28 @@ class SignIn extends React.Component {
       password: event.target.value,
     });
   }
+
+  handleClick = () => {
+ axios
+      .get("http://localhost:4000/todolist/login", {
+        params: {
+          email: this.state.email,
+          password: this.state.password,
+        },
+      })
+      .then((response) => {
+        if (response.data === "successful") {
+          this.props.history.push("/home");
+        } else {
+          console.log("Cannot Signed In");
+          console.log(this.state.email);
+          console.log(this.state.password);
+        }
+      });
+
+  };
+
   render() {
-    let props = { email: this.state.email, password: this.state.password };
     return (
       <div className="Form">
         <div>
@@ -59,10 +79,17 @@ class SignIn extends React.Component {
           </Form>
           <div className="Buttons">
             <div className="Submit">
-              <Goodbye {...props}></Goodbye>
+              <Button
+                onClick={this.handleClick}
+                className="SubmitButton"
+                variant="primary"
+                type="submit"
+              >
+                Login
+              </Button>
             </div>
             <div className="SignUpp">
-              <Link to="/Register">
+              <Link to="/register">
                 <Button
                   className="SignUpButton"
                   variant="primary"

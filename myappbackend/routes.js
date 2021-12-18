@@ -10,16 +10,24 @@ router.post('/signup', (request, response) => {
         email: request.body.email,
         password: request.body.password,
     })
-
-
-    signedUpUser.save()
+   signUpTemplateCopy
+     .findOne({ $or: [{ email: request.body.email }] })
+     .then((user) => {
+       if (user) {
+           response.json("alreadyExist");
+       }
+       else{
+            signedUpUser.save()
         .then(data => {
-            response.json(data)
+           response.json("successful");
         })
         .catch(error => {
-            response.json(error)
-
+            response.json("unsuccessful");
         })
+       }
+     });
+
+  
 
 })
 router.get('/login', (request, response) => {

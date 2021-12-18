@@ -1,9 +1,11 @@
 import React from "react";
 import "./RegisterPage.css";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
+import "./homeScreen/homeScreen";
 class RegisterPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       fullName: "",
       lastName: "",
@@ -21,7 +23,7 @@ class RegisterPage extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+ handleClick () {
     if(this.state.password === this.state.password2){
     const registered = {
       firstName: this.state.fullName,
@@ -30,14 +32,26 @@ class RegisterPage extends React.Component {
       email: this.state.email,
       password: this.state.password,
     };
+
     axios
       .post("http://localhost:4000/todolist/signup", registered)
-      .then((response) => console.log(response.data));
+      .then((response) =>{
+        if (response.data === "successful") {
+          this.props.history.push("/home");
+        }else if(response.data==="alreadyExist"){
+          alert("User Already Exist");
+        } else {
+          alert("Cannot Signed Up " + response.data);
+        }
+      })
+      
+   
+      
     }
     else{
       alert("Passwords are not equal");
     }
-  }
+  };
   changeFullName(event) {
     this.setState({
       fullName: event.target.value,
@@ -154,6 +168,7 @@ class RegisterPage extends React.Component {
               />
             </div>
           </div>
+
           <div class="form-group">
             <div class="form-check">
               <input
@@ -163,15 +178,19 @@ class RegisterPage extends React.Component {
                 id="invalidCheck2"
                 required
               />
-              <label class="form-check-label" for="invalidCheck2">
+              <label class="form-check-label">
                 Agree to terms and conditions
               </label>
             </div>
           </div>
-          <button onClick={this.handleClick} class="btn btn-primary" type="submit">
-            Register
-          </button>
-          <div></div>
+          <div>
+            <Button
+              onClick={this.handleClick}
+              class="btn btn-primary"
+            >
+              Register
+            </Button>
+          </div>
         </form>
       </div>
     );
