@@ -28,7 +28,8 @@ const signUpTemplate = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    tasks: [{ taskName: String, done:Boolean, date: Date }]
 })
 
 module.exports = mongoose.model('mytable', signUpTemplate)

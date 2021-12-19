@@ -9,6 +9,7 @@ router.post('/signup', (request, response) => {
         username: request.body.username,
         email: request.body.email,
         password: request.body.password,
+        tasks: []
     })
    signUpTemplateCopy
      .findOne({ $or: [{ email: request.body.email }] })
@@ -26,9 +27,6 @@ router.post('/signup', (request, response) => {
         })
        }
      });
-
-  
-
 })
 router.get('/login', (request, response) => {
     var email = request.query.email
@@ -49,6 +47,25 @@ router.get('/login', (request, response) => {
             }
     }
     )
+})
+router.post('/addtask', (request, response) => {
+    const signedUpUser = new signUpTemplateCopy({
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+        username: request.body.username,
+        email: request.body.email,
+        password: request.body.password,
+        tasks: []
+    })
+    signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
+        .then(user => {
+            if(user){
+                user.tasks = request.tasks
+                signUpTemplateCopy.updateOne()
+            }else{
+                response.json("unsuccessful");
+            }
+        })
 })
 
 module.exports = router;

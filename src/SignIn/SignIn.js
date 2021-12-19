@@ -40,9 +40,7 @@ class SignIn extends React.Component {
         if (response.data === "successful") {
           this.props.history.push("/home");
         } else {
-          console.log("Cannot Signed In");
-          console.log(this.state.email);
-          console.log(this.state.password);
+         alert("User Not Found");
         }
       });
 
