@@ -37,7 +37,7 @@ router.get('/login', (request, response) => {
     .then(user => {
         if(user){
             if(password === user.password){
-                response.json("successful")
+                response.json(user)
             }
             else{
                   response.json("unsuccessful");
@@ -49,23 +49,34 @@ router.get('/login', (request, response) => {
     )
 })
 router.post('/addtask', (request, response) => {
-    const signedUpUser = new signUpTemplateCopy({
-        firstName: request.body.firstName,
-        lastName: request.body.lastName,
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.password,
-        tasks: []
-    })
-    signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
+
+    const newData = signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
         .then(user => {
             if(user){
-                user.tasks = request.tasks
-                signUpTemplateCopy.updateOne()
+                user.tasks.push(request.body.task)
+                user.save()
+                console.log("Added New Task " + request.body.task.taskName);
             }else{
+                console.log(user)
                 response.json("unsuccessful");
             }
         })
+})
+
+
+router.get('/gettasks', (request, response) => {
+
+    console.log(request.query.email)
+
+    signUpTemplateCopy.findOne({$or: [{email: request.query.email}]})
+        .then(user => {
+                if(user){
+                    response.json(user.tasks)
+                }else{
+                    response.json("unsuccessful");
+                }
+            }
+        )
 })
 
 module.exports = router;

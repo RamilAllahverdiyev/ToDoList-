@@ -5,6 +5,7 @@ import React from "react";
 import { Link, } from 'react-router-dom';
 import '../homeScreen/homeScreen';
 import axios from "axios";
+import UserProfile from "../homeScreen/userprofile";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -37,8 +38,14 @@ class SignIn extends React.Component {
         },
       })
       .then((response) => {
-        if (response.data === "successful") {
-          this.props.history.push("/home");
+        if (response.data != "unsuccessful") {
+          UserProfile.setName(response.data.firstName)
+          UserProfile.setUsername(response.data.username)
+          UserProfile.setLastname(response.data.lastName)
+          UserProfile.setemail(response.data.email)
+          UserProfile.setTasks(response.data.tasks)
+
+          this.props.history.push("/home")
         } else {
          alert("User Not Found");
         }
