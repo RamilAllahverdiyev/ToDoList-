@@ -48,9 +48,9 @@ router.get('/login', (request, response) => {
     }
     )
 })
-router.post('/addtask', (request, response) => {
 
-    const newData = signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
+router.post('/addtask', (request, response) => {
+    signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
         .then(user => {
             if(user){
                 user.tasks.push(request.body.task)
@@ -65,9 +65,6 @@ router.post('/addtask', (request, response) => {
 
 
 router.get('/gettasks', (request, response) => {
-
-    console.log(request.query.email)
-
     signUpTemplateCopy.findOne({$or: [{email: request.query.email}]})
         .then(user => {
                 if(user){
@@ -78,5 +75,25 @@ router.get('/gettasks', (request, response) => {
             }
         )
 })
+
+
+router.post('/deletetask', (request, response) => {
+    signUpTemplateCopy.findOne({$or: [{email: request.body.email}]})
+        .then(user => {
+                if(user){
+                    let taskName = user.tasks[request.body.index].taskName
+                    user.tasks.splice(request.body.index , 1)
+                    user.save()
+                    console.log(taskName + " DELETED");
+                }else{
+                    console.log(user)
+                    console.log("ERROR")
+                    response.json("unsuccessful");
+                }
+            }
+        )
+})
+
+
 
 module.exports = router;

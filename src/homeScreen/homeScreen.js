@@ -22,6 +22,8 @@ class homeScreen extends React.Component {
     this.changesearch = this.changesearch.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.getTasks = this.getTasks.bind(this);
+    this.deleteTasks = this.deleteTasks.bind(this);
+
   }
     componentDidMount(){
         this.getTasks();
@@ -49,27 +51,50 @@ handleClick(){
 
     axios
         .post("http://localhost:4000/todolist/addtask", data)
+    let arr = this.state.tasks
+    arr.push(data.task)
     this.setState({
         task: "",
-    });
-
-    this.getTasks()
-
+        tasks: arr,
+    })
   }
 
   getTasks(){
+      let userMail = localStorage.getItem('userMail');
+
       axios
           .get("http://localhost:4000/todolist/gettasks", {
               params: {
-                  email: userprofile.getemail(),
+                  email: userMail,
               },
           })
           .then((response) => {
-              this.setState({
-                  tasks: response.data,
-              });
+              if(response.data != "unsuccessful") {
+                  this.setState({
+                      tasks: response.data,
+                  });
+              }
           })
   }
+  deleteTasks(index){
+      let userMail = localStorage.getItem('userMail');
+
+      const data = {
+          email: userMail,
+          index: index
+      };
+
+      axios
+          .post("http://localhost:4000/todolist/deletetask", data)
+
+      let arr = this.state.tasks
+      arr.splice(index , 1)
+      this.setState({
+            tasks: arr
+      })
+
+  }
+
   render() {
     return(
       <div>
@@ -104,22 +129,18 @@ handleClick(){
                   </div>
                   <div className="to__do__list">
                       <table id="addedtasklist">
-                      {this.state.tasks.map((task, index) =>
+                      {this.state.tasks != [] && this.state.tasks.map((task, index) =>
                               <tr>
                                   <th scope="row">{index + 1}</th>
                                   <td>{task.taskName}</td>
                                   <td>
-                                      <button type="button" onClick="" className="text-danger">
-                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                              <path d="M3 6H5H21" strokeWidth="2" strokeLinecap="round"
-                                                    strokeLinejoin="round"/>
+                                      <button type="button" onClick={()=>  this.deleteTasks(index)} className="text-danger">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                               fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                               <path
-                                                  d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z"
-                                                  strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                              <path d="M10 11V17" strokeWidth="2" strokeLinecap="round"
-                                                    strokeLinejoin="round"/>
-                                              <path d="M14 11V17" strokeWidth="2" strokeLinecap="round"
-                                                    strokeLinejoin="round"/>
+                                                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                              <path fill-rule="evenodd"
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                           </svg>
                                       </button>
                                   </td>

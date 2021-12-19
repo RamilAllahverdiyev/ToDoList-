@@ -45,6 +45,9 @@ class SignIn extends React.Component {
           UserProfile.setemail(response.data.email)
           UserProfile.setTasks(response.data.tasks)
 
+          localStorage.setItem('userMail', UserProfile.getemail());
+
+
           this.props.history.push("/home")
         } else {
          alert("User Not Found");
