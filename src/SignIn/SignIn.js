@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./SignIn.css";
+import './SignIn.css'
 import React from "react";
 import { Link, } from 'react-router-dom';
 import '../homeScreen/homeScreen';
@@ -89,7 +89,7 @@ class SignIn extends React.Component {
             <div className="Submit">
               <Button
                 onClick={this.handleClick}
-                className="SubmitButton"
+                className=" btn btn-primary SubmitButton "
                 variant="primary"
                 type="submit"
               >
@@ -99,7 +99,7 @@ class SignIn extends React.Component {
             <div className="SignUpp">
               <Link to="/register">
                 <Button
-                  className="SignUpButton"
+                  className="btn btn-primary SignUpButton"
                   variant="primary"
                   type="submit"
                 >
